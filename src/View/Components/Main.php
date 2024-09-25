@@ -5,6 +5,7 @@ namespace Mary\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Config;
 
 class Main extends Component
 {
@@ -21,14 +22,16 @@ class Main extends Component
         public ?string $collapseText = 'Collapse',
         public ?string $collapseIcon = 'o-bars-3-bottom-right',
         public ?bool $collapsible = false,
+        public ?string $maxWidthClass = null,
     ) {
         $this->url = route('mary.toogle-sidebar', absolute: false);
+        $this->maxWidthClass = $maxWidthClass ?? Config::get('mary.default_max_width_class', 'max-w-screen-2xl');
     }
 
     public function render(): View|Closure|string
     {
         return <<<'HTML'
-                 <main @class(["w-full mx-auto", "max-w-screen-2xl" => !$fullWidth])>
+                 <main @class(["w-full mx-auto", "$maxWidthClass" => !$fullWidth])>
                     <div @class([
                         "drawer lg:drawer-open",
                         "drawer-end" => $sidebar?->attributes['right'],
@@ -96,7 +99,7 @@ class Main extends Component
 
                  <!-- FOOTER -->
                  @if($footer)
-                    <footer {{ $footer?->attributes->class(["mx-auto w-full", "max-w-screen-2xl" => !$fullWidth ]) }}>
+                    <footer {{ $footer?->attributes->class(["mx-auto w-full", "$maxWidthClass" => !$fullWidth ]) }}>
                         {{ $footer }}
                     </footer>
                 @endif

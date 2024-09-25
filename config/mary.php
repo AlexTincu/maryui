@@ -41,5 +41,10 @@ return [
         'spotlight' => [
             'class' => 'App\Support\Spotlight',
         ]
-    ]
+    ],
+
+    /**
+     * Default max width class
+     */
+    'default_max_width_class' => 'max-w-screen-xl',
 ];
