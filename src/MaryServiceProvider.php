@@ -256,6 +256,11 @@ class MaryServiceProvider extends ServiceProvider
             __DIR__ . '/../config/mary.php' => config_path('mary.php'),
         ], 'mary.config');
 
+        // Publish views
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/maryui'),
+        ], 'maryui-views');
+
         $this->commands([MaryInstallCommand::class, MaryBootcampCommand::class]);
     }
 }
